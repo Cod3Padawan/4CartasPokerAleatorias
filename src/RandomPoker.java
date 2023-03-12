@@ -15,14 +15,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.geom.RoundRectangle2D;
-
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-
 public class RandomPoker {
     private static final int IMAGE_WIDTH = 200;
     private static final int IMAGE_HEIGHT = 300;
@@ -36,34 +28,13 @@ public class RandomPoker {
     private int counter;
     private int numClicks;
 
-
-    public class RoundedImageLabel extends JLabel {
-        private static final long serialVersionUID = 1L;
-
-        private int borderRadius;
-
-        public RoundedImageLabel(ImageIcon icon, int borderRadius) {
-            super(icon);
-            this.borderRadius = borderRadius;
-        }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            Graphics2D g2 = (Graphics2D) g;
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            RoundRectangle2D.Float border = new RoundRectangle2D.Float(0, 0, getWidth(), getHeight(), borderRadius, borderRadius);
-            g2.clip(border);
-            super.paintComponent(g2);
-        }
-    }
-
     public static void main(String[] args) {
-        String folderPath = "//home/ji156mint/IdeaProjects/RandomPoker/src/cartas";
+        String folderPath = "/home/ji156mint/IdeaProjects/CartasPoker/src/cartas";
         RandomPoker randomPoker = new RandomPoker();
         randomPoker.imageFiles = randomPoker.loadImageFiles(folderPath);
         Collections.shuffle(randomPoker.imageFiles);
 
-        JFrame frame = new JFrame("Random Poker Card");
+        JFrame frame = new JFrame("Random Poker");
         frame.getContentPane().setBackground(BACKGROUND_GREEN);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -130,15 +101,21 @@ public class RandomPoker {
         panel.setBackground(POKER_GREEN);
         panel.setLayout(new GridLayout(2, 2));
 
+        if (imageFiles.isEmpty()) {
+            System.err.println("Error: la lista de imágenes está vacía.");
+            return panel;
+        }
+
         for (int i = 0; i < 4; i++) {
             File imageFile = imageFiles.get(i % imageFiles.size());
             ImageIcon imageIcon = loadImageIcon(imageFile);
-            JLabel label = new RoundedImageLabel(imageIcon, 5); // Radio de borde de 20px
+            JLabel label = new JLabel(imageIcon);
             panel.add(label);
         }
 
         return panel;
     }
+
 
     private void updatePanel() {
         panel.removeAll();
