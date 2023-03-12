@@ -35,6 +35,7 @@ public class RandomPoker {
         Collections.shuffle(randomPoker.imageFiles);
 
         JFrame frame = new JFrame("Random Poker");
+        frame.setLocationRelativeTo(null);
         frame.getContentPane().setBackground(BACKGROUND_GREEN);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
