@@ -29,7 +29,7 @@ public class RandomPoker {
     private int numClicks;
 
     public static void main(String[] args) {
-        String folderPath = "/home/ji156mint/IdeaProjects/CartasPoker/src/cartas";
+        String folderPath = "src/cartas";
         RandomPoker randomPoker = new RandomPoker();
         randomPoker.imageFiles = randomPoker.loadImageFiles(folderPath);
         Collections.shuffle(randomPoker.imageFiles);
